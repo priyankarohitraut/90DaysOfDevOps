@@ -1,0 +1,21 @@
+Check running processes 
+ps 
+this command used to display information about active process on 
+a system.
+it gives you snapsot at that moment showing details about process IDs,
+the terminal associated,cpu usage ,and the command that started the process.
+
+Inspect one systemd service
+nslookup
+is a network command line tool used to 
+qurey and dignose the domain name system 
+essentially,find the IP address associated with a
+domain name 
+
+Capture a small troubleshooting flow
+1 identify the issue: what is the symptom
+2 gather information: use command like ps,top,htop.nslookup for DNS issue,ping check network 
+   connectivity 
+3 isolate the couse:based on the information 
+4 take action: restart a service reconfigure DNS,apply a path.
+5 verify the solution: check the original issues is resolved and monitor for stability 
