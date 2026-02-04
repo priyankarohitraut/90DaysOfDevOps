@@ -1,0 +1,36 @@
+Capture a quick health snapshot (CPU, memory, disk, network)
+1 cpu: usetop or htop for a dynamic view or mpstst for a summary.
+2 memory: use free -h to see memory usage in a human readable format.
+3 disk: use df -h to check disk space usage and iostat for disk l/0 stats.
+4 network: use ifconfig or ip addr to see network interface,and ping or netstat to check 
+connectivity or active connection.
+
+
+Trace logs for that service
+1 use journalctl -u <service-name> to see logs for that specific service. add flags like -f to follow 
+logs in real time or --since to specify a time range.
+2 if the service uses traditional log files , check /var/log/ or its subdirectories for relevant files .
+for eg- tail -f /var/log/<service>.log will the log file in real time.
+
+
+Write a mini runbook describing what you did and what you’d do next if things were worse
+
+Checked CPU: We used top to assess current CPU load and identify any processes consuming excessive resources.
+
+Checked Memory: We ran free -h to confirm memory usage and check for any signs of low available memory or swap usage.
+
+Checked Disk: We used df -h to inspect disk space and ensure no partitions were full.
+
+Checked Network: We verified network status with ip addr and ping to check connectivity.
+
+What To Do Next If Things Get Worse
+
+CPU Spikes: Identify specific processes using high CPU (top) and consider restarting or optimizing them. If systemic, investigate application efficiency or scaling.
+
+Memory Pressure: Identify memory-hungry processes (top or ps) and restart or reallocate resources. Consider adding swap or increasing physical memory if persistent.
+
+Disk Full or Slow: Identify large or unnecessary files and clear space. If I/O is an issue, check disk health (iostat) or consider moving to faster storage (SSD).
+
+Network Issues: If connectivity fails, trace with ping, traceroute, or nslookup. Check physical connections, DNS configuration, or firewall settings.
+
+
