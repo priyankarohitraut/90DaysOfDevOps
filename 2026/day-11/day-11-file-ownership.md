@@ -1,10 +1,4 @@
 
-# Day 11 Challenge – File Ownership (Beginner Practice)
-
-Today I practiced file ownership in Linux using chown and chgrp commands.
-
-This was a beginner hands-on practice to understand how users and groups work in Linux.
-
 ---
 
 ## Files & Directories Created
