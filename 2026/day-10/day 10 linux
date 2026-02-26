@@ -1,0 +1,145 @@
+Create empty file devops.txt using touch
+touch devops.txt
+
+
+Create notes.txt with some content using cat or echo
+touch notes.txt
+cat notes.txt
+echo notes.txt
+
+
+Create script.sh using vim with content: echo "Hello DevOps"
+vim script.sh
+echo"hellow devops"
+cat script.sh
+
+Verify: ls -l to see permissions
+notes.txt
+woner = read,write
+group = read,write
+other = read
+
+script.sh
+woner = read,write
+group = read,write
+other = rea
+
+
+Task 2: Read Files (10 minutes)
+
+Read notes.txt using cat
+notes.txt
+
+View script.sh in vim read-only mode
+vim -R script.sh
+
+Display first 5 lines of /etc/passwd using head
+head -5 /etc/passwd
+
+Display last 5 lines of /etc/passwd using tail
+tail -5 /etc/passwd
+
+Task 3: Understand Permissions (10 minutes)
+
+Format: rwxrwxrwx (owner-group-others)
+
+r = read (4), w = write (2), x = execute (1)
+Check your files: ls -l devops.txt notes.txt script.sh
+
+Answer: What are current permissions? Who can read/write/execute?
+devops.txt
+woner = read,write
+group = read,write
+other = read
+
+notes.txt
+woner = read,write
+group = read,write
+other = read
+
+script.sh
+woner = read,write
+group = read,write
+other = read
+
+Task 4: Modify Permissions (20 minutes)
+
+Make script.sh executable → run it with ./script.sh
+./script.sh
+hellow devops
+
+Set devops.txt to read-only (remove write for all)
+chmod a-w devops.txt
+woner = read
+group = read
+other = read
+
+
+Set notes.txt to 640 (owner: rw, group: r, others: none)
+chmod 640 notes.txt
+woner = read,write
+group = read
+other = none
+
+
+Create directory project/ with permissions 755
+mkdir project
+chmode 755 project
+
+woner = read,write,exicute
+group = read,exicute
+other = read,exicute
+
+Verify: ls -l after each change
+devops.txt
+woner = read
+group = read
+other = read
+
+project
+woner = read,write,exicute
+group = read,exicute
+other = read,exicute
+
+notes.txt
+woner = read,write
+group = read
+other = none
+
+script.sh
+woner = read,write
+group = read,write
+other = read
+
+
+Task 5: Test Permissions (10 minutes)
+
+Try writing to a read-only file - what happens?
+chmod 444 script.sh
+ls -l
+woner = read
+group = read
+other = read
+./script.sh
+Permission denied
+
+Try executing a file without execute permission
+chmod 666 script.sh
+ls -l
+woner = read,write
+group = read,write
+other = read,write
+./script.sh
+Permission denied
+
+Document the error messages
+echo "Hello" > devops.txt
+Permission denied
+
+
+
+
+
+#TrainWithShubham
+Happy Learning TrainWithShubham
+
