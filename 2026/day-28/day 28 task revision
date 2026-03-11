@@ -1,0 +1,545 @@
+Challenge Tasks
+Task 1: Self-Assessment Checklist
+Go through the checklist below. For each item, mark yourself honestly:
+
+Can do confidently
+Need to revisit
+Haven't done yet
+Linux
+ Navigate the file system, create/move/delete files and directories
+ Manage processes — list, kill, background/foreground
+ Work with systemd — start, stop, enable, check status of services
+ Read and edit text files using vi/vim or nano
+ Troubleshoot CPU, memory, and disk issues using top, free, df, du
+ Explain the Linux file system hierarchy (/, /etc, /var, /home, /tmp, etc.)
+ Create users and groups, manage passwords
+ Set file permissions using chmod (numeric and symbolic)
+ Change file ownership with chown and chgrp
+ Create and manage LVM volumes
+ Check network connectivity — ping, curl, netstat, ss, dig, nslookup
+ Explain DNS resolution, IP addressing, subnets, and common ports
+Shell Scripting
+ Write a script with variables, arguments, and user input
+ Use if/elif/else and case statements
+ Write for, while, and until loops
+ Define and call functions with arguments and return values
+ Use grep, awk, sed, sort, uniq for text processing
+ Handle errors with set -e, set -u, set -o pipefail, trap
+ Schedule scripts with crontab
+Git & GitHub
+ Initialize a repo, stage, commit, and view history
+ Create and switch branches
+ Push to and pull from GitHub
+ Explain clone vs fork
+ Merge branches — understand fast-forward vs merge commit
+ Rebase a branch and explain when to use it vs merge
+ Use git stash and git stash pop
+ Cherry-pick a commit from another branch
+ Explain squash merge vs regular merge
+ Use git reset (soft, mixed, hard) and git revert
+ Explain GitFlow, GitHub Flow, and Trunk-Based Development
+ Use GitHub CLI to create repos, PRs, and issues
+1️⃣ Linux
+Topic	Can do confidently	Need to revisit	Haven’t done yet
+Navigate file system (cd, ls, mkdir, rm)	yes 
+   
+Create / move / delete files & directories	yes
+   
+Manage processes (ps, top, kill, bg, fg)	yes
+   
+Work with systemd (systemctl start/stop/status/enable)	yes
+   
+Edit files using vi/vim or nano	yes
+   
+Troubleshoot CPU, memory, disk (top, free, df, du)	yes
+   
+Explain Linux directory structure (/ , /etc , /var , /home)	yes
+   
+Create users & groups	yes
+   
+Set permissions using chmod	yes
+   
+Change ownership using chown	yes
+   
+Create and manage LVM volumes	yes
+   
+
+Network troubleshooting (ping, curl, ss, netstat)	yes
+   
+Explain DNS, IP, subnet, ports	yes
+
+  
+2️⃣ Shell Scripting
+Topic	Can do confidently	Need to revisit	Haven’t done yet
+Write basic script with variables	done
+  
+Use arguments ($1, $2)	done
+  
+Take user input using read	done
+  
+Use if / elif / else	done
+  
+Use case statements	done
+  
+Write for loop	done
+  
+Write while / until loop	done
+  
+Create functions done
+  
+Use grep, awk, sed	done
+  
+Error handling (set -e, trap)	done
+  
+Schedule scripts using crontab done
+
+  
+3️⃣ Git & GitHub
+Topic	Can do confidently	Need to revisit	Haven’t done yet
+Initialize repo (git init)	done yet
+  
+Stage & commit	done yet
+  
+View history (git log)	done yet
+  
+Create & switch branches	done yet
+  
+Push / Pull from GitHub	done yet
+  
+Explain clone vs fork	done yet
+  
+Merge branches	done  yet
+  
+Rebase branch	doe yet
+  
+Use git stash	done yet
+  
+Cherry-pick commit	done yet
+  
+Squash merge	doe yet
+  
+Git reset & revert	done yet
+  
+GitFlow / GitHub Flow	done yet
+  
+Use GitHub CLI	done yet
+  
+
+   
+Task 2: Revisit Your Weak Spots
+Pick 3 topics from the checklist where you marked "Need to revisit"
+Go back to that day's challenge and redo the hands-on tasks
+Document what you re-learned in day-28-notes.md
+Day 28 – Revisit Weak Spots
+Topic 1: systemd Service Management (Linux)
+What I Practiced
+
+Checked service status using systemctl status
+
+Started and stopped services
+
+Enabled services to start automatically at boot
+
+Commands Used
+sudo systemctl status ssh
+sudo systemctl start ssh
+sudo systemctl stop ssh
+sudo systemctl enable ssh
+What I Re-learned
+
+systemctl status helps check if a service is running or failed.
+
+systemctl enable ensures the service starts automatically when the system boots.
+
+systemd manages background services in Linux.
+
+Topic 2: Shell Scripting – If/Else Conditions
+What I Practiced
+
+Created a script to check whether a number is positive, negative, or zero.
+
+Script Example
+#!/bin/bash
+
+echo "Enter a number:"
+read num
+
+if [ $num -gt 0 ]
+then
+  echo "Positive number"
+elif [ $num -lt 0 ]
+then
+  echo "Negative number"
+else
+  echo "Number is zero"
+fi
+What I Re-learned
+
+if, elif, and else are used for decision-making in shell scripts.
+
+-gt means greater than and -lt means less than.
+
+read is used to take input from the user.
+
+Topic 3: Git Stash
+What I Practiced
+
+Temporarily saved uncommitted changes
+
+Restored changes later
+
+Commands Used
+git stash
+git stash list
+git stash pop
+What I Re-learned
+
+git stash saves temporary changes without committing them.
+
+git stash list shows all stashes.
+
+git stash pop restores the saved changes and removes them from stash.
+
+Summary
+
+Today I revisited three weak areas: systemd service management, shell scripting conditions, and Git stash. Re-practicing these commands helped me understand how to manage services, write conditional scripts, and temporarily store Git changes during development.
+
+
+  
+Task 3: Quick-Fire Questions
+Answer these from memory (no Googling). Then verify your answers:
+
+What does chmod 755 script.sh do?
+What is the difference between a process and a service?
+How do you find which process is using port 8080?
+What does set -euo pipefail do in a shell script?
+What is the difference between git reset --hard and git revert?
+What branching strategy would you recommend for a team of 5 developers shipping weekly?
+What does git stash do and when would you use it?
+How do you schedule a script to run every day at 3 AM?
+What is the difference between git fetch and git pull?
+What is LVM and why would you use it instead of regular partitions?
+1️⃣ What does chmod 755 script.sh do?
+
+chmod 755 script.sh changes the file permissions.
+
+Owner → read, write, execute (7)
+
+Group → read, execute (5)
+
+Others → read, execute (5)
+
+Example:
+
+chmod 755 script.sh
+
+Meaning:
+
+Owner can read, write, execute
+
+Others can read and execute only
+
+Commonly used for scripts or executable files.
+
+2️⃣ Difference between a Process and a Service
+Process	Service
+A running instance of a program	A background program managed by system
+Temporary	Usually long-running
+Example: vim, top	Example: nginx, ssh, docker
+
+Example command to see processes:
+
+ps aux
+3️⃣ How to find which process is using port 8080?
+
+Use:
+
+sudo lsof -i :8080
+
+or
+
+sudo ss -tulnp | grep 8080
+
+This shows the PID and program name using the port.
+
+4️⃣ What does set -euo pipefail do in a shell script?
+
+It makes scripts safer and fail fast.
+
+Option	Meaning
+set -e	Exit script if any command fails
+set -u	Error if using undefined variable
+set -o pipefail	Pipeline fails if any command fails
+
+Example:
+
+set -euo pipefail
+
+Used in production scripts.
+
+5️⃣ Difference between git reset --hard and git revert
+git reset --hard	git revert
+Moves HEAD and deletes changes	Creates a new commit that undoes changes
+Rewrites history	Keeps history safe
+Dangerous for shared branches	Safe for teams
+
+Example:
+
+git reset --hard HEAD~1
+git revert <commit-id>
+6️⃣ Branching strategy for 5 developers shipping weekly
+
+Best option:
+
+GitHub Flow or Trunk-Based Development
+
+Typical workflow:
+
+main branch → production
+
+Developers create feature branches
+
+Create Pull Request
+
+Code review
+
+Merge to main
+
+Deploy
+
+Example:
+
+git checkout -b feature-login
+7️⃣ What does git stash do?
+
+git stash temporarily saves uncommitted changes.
+
+Used when:
+
+You want to switch branches
+
+Your work is not ready to commit
+
+Example:
+
+git stash
+git stash pop
+8️⃣ How to schedule a script to run every day at 3 AM?
+
+Use crontab.
+
+crontab -e
+
+Add:
+
+0 3 * * * /home/user/script.sh
+
+Meaning:
+
+minute hour day month weekday
+0      3    *   *     *
+
+Runs daily at 3 AM.
+
+9️⃣ Difference between git fetch and git pull
+git fetch	git pull
+Downloads changes	Downloads + merges
+Does not modify working directory	Updates local branch
+
+Example:
+
+git fetch origin
+git pull origin main
+🔟 What is LVM?
+
+LVM = Logical Volume Manager
+
+It allows flexible disk management in Linux.
+
+Advantages:
+
+Resize disks easily
+
+Combine multiple disks
+
+Take snapshots
+
+Expand storage without downtime
+
+Example flow:
+
+Disk → Physical Volume (PV)
+PV → Volume Group (VG)
+VG → Logical Volume (LV)
+
+Commands example:
+
+pvcreate /dev/sdb
+vgcreate myvg /dev/sdb
+lvcreate -L 5G -n mylv myvg
+
+✅ Interview Tip (very important for you):
+
+For DevOps fresher interviews, the most commonly asked topics are:
+
+Linux permissions
+
+Process vs service
+
+Git reset / revert
+
+Crontab
+
+Ports & networking
+
+LVM basics
+
+
+  
+Task 4: Organize Your Work
+Make sure all your daily submissions (day-1 through day-27) are committed and pushed
+Check that your git-commands.md is up to date
+Check that your shell scripting cheat sheet is complete
+Verify your GitHub profile and repos are clean (from Day 27)
+Task 4 – Organize Your Work
+1️⃣ Ensure All Days Are Committed and Pushed (Day-1 → Day-27)
+
+Go to your project folder and check the status.
+
+git status
+
+If there are uncommitted files:
+
+git add .
+git commit -m "Added remaining daily challenge files"
+git push origin main
+
+Then verify:
+
+git log --oneline
+
+You should see commits for day-1 to day-27.
+
+2️⃣ Check git-commands.md
+
+Open the file and ensure it contains the important commands:
+
+Example structure:
+
+# Git Commands Cheat Sheet
+
+## Repository Setup
+git init
+git clone <repo>
+
+## Basic Workflow
+git add .
+git commit -m "message"
+git push origin main
+git pull origin main
+
+## Branching
+git branch
+git checkout -b feature
+git merge branch-name
+
+## Advanced
+git stash
+git cherry-pick
+git rebase
+git reset
+git revert
+
+If anything is missing → update it and commit.
+
+3️⃣ Verify Shell Scripting Cheat Sheet
+
+Check that your shell scripting cheat sheet includes:
+
+Basics
+
+Variables
+
+read input
+
+arguments $1 $2
+
+Conditions
+if
+elif
+else
+case
+Loops
+for
+while
+until
+Functions
+function_name() {
+  commands
+}
+Important Commands
+
+grep
+
+awk
+
+sed
+
+sort
+
+uniq
+
+crontab
+
+Commit if updated:
+
+git add shell-cheatsheet.md
+git commit -m "Updated shell scripting cheat sheet"
+git push
+4️⃣ Verify Your GitHub Profile & Repositories
+
+Open your GitHub profile and check:
+
+✔ Repository names are clear
+✔ No empty repositories
+✔ No secrets like .env or passwords
+✔ README files exist
+✔ Daily challenge files are organized
+
+Example structure:
+
+DevOps-Learning
+│
+├── day-1-notes.md
+├── day-2-notes.md
+├── day-3-notes.md
+...
+├── day-28-notes.md
+│
+├── git-commands.md
+├── shell-cheatsheet.md
+└── README.md
+5️⃣ Final Push
+
+Run one last push to ensure everything is uploaded.
+
+git add .
+git commit -m "Final updates and organization"
+git push origin main
+
+
+
+Task 5: Teach It Back
+Pick one topic you've learned and write a short explanation (5-10 lines) as if you're teaching it to someone who has never heard of it. Add it to your day-28-notes.md.
+
+Examples:
+
+Explain Git branching to a non-developer
+Explain file permissions to a new Linux user
+Explain what a crontab is and why sysadmins use it
+Teaching is the best test of understanding.
+## Teaching Back – Linux File Permissions
+
+Linux file permissions control who can read, write, or execute a file. Every file has three types of users: the owner, the group, and others. Permissions are represented by numbers such as 7, 5, and 4. For example, `chmod 755 script.sh` gives the owner full permissions (read, write, execute) while the group and others can only read and execute the file. This system helps protect files from unauthorized access. System administrators use permissions to control what users can do on a system. Understanding permissions is important for managing security and running scripts safely in Linux.
+
+
