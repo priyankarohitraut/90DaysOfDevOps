@@ -1,0 +1,236 @@
+Challenge Task 1: Install the Metrics Server
+
+First check if it is already running:
+
+kubectl get pods -n kube-system | grep metrics-server
+
+If nothing comes, install it.
+
+For Minikube
+minikube addons enable metrics-server
+For Kind / kubeadm
+
+Use the official manifest:
+
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+For local clusters, edit deployment and add:
+
+- --kubelet-insecure-tls
+
+inside container args.
+
+Wait and Verify
+sleep 60
+kubectl top nodes
+kubectl top pods -A
+Verify Answer
+
+Question: What is the current CPU and memory usage of your node?
+
+Example answer:
+
+Current node usage is 120m CPU and 1.2Gi memory.
+
+Your exact values will depend on your machine.
+
+Challenge Task 2: Explore kubectl top
+
+Run:
+
+kubectl top nodes
+kubectl top pods -A
+kubectl top pods -A --sort-by=cpu
+Important Interview Point
+
+kubectl top shows:
+
+actual real-time usage
+not requests
+not limits
+
+This data comes from Metrics Server every ~15 seconds.
+
+Verify Answer
+
+Question: Which pod is using the most CPU?
+
+Run:
+
+kubectl top pods -A --sort-by=cpu
+
+Top row = highest CPU pod.
+
+Example:
+
+kube-apiserver is currently using the most CPU.
+
+Challenge Task 3: Create Deployment with CPU Requests
+
+Create deployment:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-apache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: php-apache
+  template:
+    metadata:
+      labels:
+        app: php-apache
+    spec:
+      containers:
+      - name: php-apache
+        image: registry.k8s.io/hpa-example
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 200m
+
+Save as php-apache.yaml
+
+Apply:
+
+kubectl apply -f php-apache.yaml
+Expose Service
+kubectl expose deployment php-apache --port=80
+Verify CPU Usage
+kubectl top pods
+
+Example answer:
+
+Pod is currently using 25m CPU
+
+Challenge Task 4: Create HPA (Imperative)
+
+Run:
+
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+
+Check:
+
+kubectl get hpa
+kubectl describe hpa php-apache
+Verify TARGETS
+
+Example output:
+
+25%/50%
+
+Meaning:
+
+current CPU usage = 25%
+target = 50%
+Interview Ready Answer
+
+Question: What does TARGETS show?
+
+TARGETS shows current CPU utilization percentage vs target utilization percentage.
+
+Example: 25%/50%
+
+Challenge Task 5: Generate Load and Watch Autoscaling
+
+Start load generator:
+
+kubectl run load-generator \
+  --image=busybox:1.36 \
+  --restart=Never \
+  -- /bin/sh -c "while true; do wget -q -O- http://php-apache; done"
+
+Watch scaling:
+
+kubectl get hpa php-apache --watch
+
+Also watch replicas:
+
+kubectl get deployment php-apache -w
+Expected Behavior
+
+After 1–3 minutes:
+
+CPU > 50%
+HPA scales from 1 → 2 → 3 replicas
+
+Possible result:
+
+1 → 4 replicas
+Verify Answer
+
+Question: How many replicas did HPA scale to?
+
+Example:
+
+HPA scaled to 4 replicas under load
+
+(Your result may be 2–5 depending on system resources.)
+
+Stop Load
+kubectl delete pod load-generator
+Challenge Task 6: Create HPA from YAML (Declarative)
+
+Delete old HPA:
+
+kubectl delete hpa php-apache
+
+Create file hpa.yaml
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: php-apache
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+    scaleDown:
+      stabilizationWindowSeconds: 300
+
+Apply:
+
+kubectl apply -f hpa.yaml
+
+Verify:
+
+kubectl describe hpa php-apache
+Verify Answer
+
+Question: What does the behavior section control?
+
+It controls how quickly pods scale up and scale down.
+
+Example:
+
+immediate scale-up
+delayed scale-down (300 sec)
+
+This prevents frequent scaling fluctuations.
+
+Challenge Task 7: Cleanup
+
+Run:
+
+kubectl delete hpa php-apache
+kubectl delete service php-apache
+kubectl delete deployment php-apache
+kubectl delete pod load-generator --ignore-not-found
+
+Keep metrics server installed.
